@@ -1,25 +1,28 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import PasswordStrength from './PasswordStrength';
 import './App.css';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const [password, setPassword] = useState('');
+
+const handleSubmit = (e) => {
+e.preventDefault();
+console.log('Submitting password:', password);
+}
+
+return (
+<div className="login-container">
+<form onSubmit={handleSubmit}>
+<h1>Login</h1>
+<label>
+Password:
+<input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+</label>
+<button type="submit" disabled={password.length < 3}>Submit</button>
+</form>
+<PasswordStrength password={password} />
+</div>
+);
 }
 
 export default App;
